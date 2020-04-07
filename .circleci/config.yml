@@ -5,8 +5,9 @@ jobs:
     docker:
       - image: golang:1.14-alpine
     working_directory: /go/src/gostradamus
+    steps:
       - checkout
-      - go install github.com/bykof/gostradamus
+      - run: go install github.com/bykof/gostradamus
 
   lint:
     docker:
