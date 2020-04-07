@@ -137,7 +137,7 @@ func TestNewLocalDateTime(t *testing.T) {
 	assert.Equal(
 		t,
 		actual,
-		NewUTCDateTime(2017, 7, 14, actual.Hour() - (offset / 3600), 40, 0, 0).InTimezone(Local()),
+		NewUTCDateTime(2017, 7, 14, actual.Hour()-(offset/3600), 40, 0, 0).InTimezone(Local()),
 	)
 }
 
