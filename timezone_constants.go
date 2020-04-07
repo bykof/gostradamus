@@ -1,5 +1,6 @@
 package gostradamus
 
+// All possible Timezones, which are supported by Go's "time" library
 const (
 	AfricaAbidjan                  = Timezone("Africa/Abidjan")
 	AfricaAccra                    = Timezone("Africa/Accra")

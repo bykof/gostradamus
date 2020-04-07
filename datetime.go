@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-// Datetime reflects time.Time and adds functionality
+// DateTime reflects time.Time and adds functionality of this library
 type DateTime time.Time
 
 // DateTimeFromTime returns a DateTime with given time.Time

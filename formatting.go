@@ -79,7 +79,6 @@ const (
 type FormatToken string
 type formatTokens []FormatToken
 type goFormatToken string
-type goFormatTokens []goFormatToken
 
 var (
 	formatTokenMap = map[FormatToken]goFormatToken{
