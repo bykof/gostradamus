@@ -132,11 +132,12 @@ func TestDateTime_ForJson(t *testing.T) {
 }
 
 func TestNewLocalDateTime(t *testing.T) {
-	actual := NewLocalDateTime(2017, 7, 14, 2, 40, 0, 0)
+	actual := NewLocalDateTime(2017, 7, 14, 0, 40, 0, 0)
+	_, offset := actual.Time().Zone()
 	assert.Equal(
 		t,
 		actual,
-		NewUTCDateTime(2017, 7, 14, 0, 40, 0, 0).InTimezone(Local()),
+		NewUTCDateTime(2017, 7, 14, actual.Hour() - (offset / 3600), 40, 0, 0).InTimezone(Local()),
 	)
 }
 
