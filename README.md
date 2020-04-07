@@ -1,6 +1,7 @@
 # Gostradamus: Better DateTimes for Go
 
 [![Gostradamus](https://img.shields.io/circleci/build/github/bykof/gostradamus)](https://app.circleci.com/pipelines/github/bykof/gostradamus)
+[![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/bykof/gostradamus)
 
 ## Introduction
 Gostradamus is a Go library that offers a lightweight and human-friendly way to create, transform, format, and parse datetimes.
