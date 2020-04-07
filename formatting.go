@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// All FormatTokens for parsing and formatting with DateTime
 const (
 	YearFull  = FormatToken("YYYY")
 	YearShort = FormatToken("YY")
@@ -76,6 +77,7 @@ const (
 	GoNumColonSecondsTZ     = goFormatToken("-07:00:00")
 )
 
+// FormatToken helps to hold all possible tokens for parsing and formatting
 type FormatToken string
 type formatTokens []FormatToken
 type goFormatToken string
