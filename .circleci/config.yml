@@ -1,0 +1,54 @@
+version: 2.1
+
+jobs:
+  # This build job just tests that the binary can build. If your project is a
+  # library, not a binary, you don't need this build job. In other words, omit
+  # this job if you don't have a func main() in your project.
+  build:
+    docker:
+      - image: golang:1.14-alpine
+    working_directory: /go/src/gostradamus
+      - checkout
+      # github.com/foo/bar/cmd/baz is the import path to your main module. Your
+      # func main() should be in a file in the cmd/<binary name>/ directory. The
+      # import path should be <module name>/cmd/<binary name>
+      #
+      # If you are planning to publish this binary as a release artifact, you
+      # should do the following:
+      # 1. Set CGO_ENABLED: '0' in the environment block. Put the '0' in single
+      #    quotes. This will produce a statically linked binary (no runtime
+      #    dependencies). Since this is an alpine container, it will statically
+      #    link musl libc into the binary. musl is smaller and more secure than
+      #    glibc, but if you have any problems, change the container from
+      #    golang:1.14-alpine to golang:1.14. Then glibc will be statically
+      #    linked instead.
+      # 2. go install -ldflags '-s -w' github.com/foo/bar/cmd/baz
+      #    -ldflags '-s -w' means strip the debug symbols from the binary. This
+      #    significantly shrinks the binary size and is a security best practice.
+      - go install github.com/bykof/gostradamus
+
+  # golangci-lint runs dozens of linters in parallel on your project. It is the
+  # best Go linter.
+  lint:
+    docker:
+      - image: golangci/golangci-lint:v1.23-alpine
+    steps:
+      - checkout
+      - run: golangci-lint run
+  test:
+    docker:
+      # We use golang:1.14 instead of golang:1.14-alpine because we want to run
+      # tests with the race detector enabled. The race detector requires glibc,
+      # which is only present in the Debian-based containers.
+      - image: golang:1.14
+    working_directory: /go/src/<your-project-name>
+    steps:
+      - checkout
+      - run: go test -v -race ./...
+
+workflows:
+  build_lint_test:
+    jobs:
+      - build
+      - lint
+      - test
