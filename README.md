@@ -19,6 +19,26 @@ Nostradamus is known for his prophecies, therefore he worked a lot with time, li
 
 ✅ Format with common and known format tokens like `YYYY-MM-DD HH:mm:ss`
 
+
+## Basic Usage
+
+```go
+package main
+
+import "github.com/bykof/gostradamus"
+
+func main() {
+    dateTime, err := gostradamus.Parse("2017-07-14T02:40:00.000000", gostradamus.Iso8601)
+    if err != nil {
+        panic(err)
+    }
+
+    dateTime = dateTime.ShiftMonths(-5).ShiftDays(2)
+    println(dateTime.Format("DD.MM.YYYY HH:mm:ss"))
+    // 16.02.2017 02:40:00
+}
+```
+
 ## Table of Contents
 
 + [Types](#types)
