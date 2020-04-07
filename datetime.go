@@ -144,19 +144,25 @@ func (dt DateTime) Time() time.Time {
 }
 
 // IsoFormat the current DateTime into ISO-8601 standard
-// Example: 2017-07-14T02:40:00.000000+0200
+//
+//     Example: 2017-07-14T02:40:00.000000+0200
+//
 func (dt DateTime) IsoFormat() string {
 	return dt.Format(Iso8601)
 }
 
 // IsoFormatTZ the current DateTime into ISO-8601 standard and current timezone info
-// Example: 2017-07-14T02:40:00.000000
+//
+//     Example: 2017-07-14T02:40:00.000000
+//
 func (dt DateTime) IsoFormatTZ() string {
 	return dt.Format(Iso8601TZ)
 }
 
 // CTimeFormat the current DateTime to ctime standard
-// Example: Sat Feb 15 12:12:12 2020
+//
+//     Example: Sat Feb 15 12:12:12 2020
+//
 func (dt DateTime) CTimeFormat() string {
 	return dt.Format(CTime)
 }
@@ -312,49 +318,65 @@ func (dt DateTime) Shift(years int, months int, days int, hours int, minutes int
 }
 
 // FloorYear returns a DateTime with all values to "floor" except year
-// Example: 2012-12-12 12:12:12.123456789 becomes 2012-01-01 00:00:00.00000000
+//
+//     Example: 2012-12-12 12:12:12.123456789 becomes 2012-01-01 00:00:00.00000000
+//
 func (dt DateTime) FloorYear() DateTime {
 	return dt.Replace(dt.Year(), 1, 1, 0, 0, 0, 0)
 }
 
 // FloorMonth returns a DateTime with all values to "floor" except year, month
-// Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-01 00:00:00.00000000
+//
+//     Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-01 00:00:00.00000000
+//
 func (dt DateTime) FloorMonth() DateTime {
 	return dt.Replace(dt.Year(), dt.Month(), 1, 0, 0, 0, 0)
 }
 
 // FloorDay returns a DateTime with all values to "floor" except year, month, day
-// Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-12 00:00:00.00000000
+//
+//     Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-12 00:00:00.00000000
+//
 func (dt DateTime) FloorDay() DateTime {
 	return dt.Replace(dt.Year(), dt.Month(), dt.Day(), 0, 0, 0, 0)
 }
 
 // FloorHour returns a DateTime with all values to "floor" except year, month, day, hour
-// Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-12 12:00:00.00000000
+//
+//     Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-12 12:00:00.00000000
+//
 func (dt DateTime) FloorHour() DateTime {
 	return dt.Replace(dt.Year(), dt.Month(), dt.Day(), dt.Hour(), 0, 0, 0)
 }
 
 // FloorMinute returns a DateTime with all values to "floor" except year, month, day, hour, minute
-// Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-12 12:12:00.00000000
+//
+//     Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-12 12:12:00.00000000
+//
 func (dt DateTime) FloorMinute() DateTime {
 	return dt.Replace(dt.Year(), dt.Month(), dt.Day(), dt.Hour(), dt.Minute(), 0, 0)
 }
 
 // FloorSecond returns a DateTime with all values to "floor" except year, month, day, hour, minute, second
-// Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-31 12:12:12.00000000
+//
+//     Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-31 12:12:12.00000000
+//
 func (dt DateTime) FloorSecond() DateTime {
 	return dt.Replace(dt.Year(), dt.Month(), dt.Day(), dt.Hour(), dt.Minute(), dt.Second(), 0)
 }
 
 // CeilYear returns a DateTime with all values to "ceil" except year, month, day, hour, minute, second
-// Example: 2012-05-12 12:12:12.123456789 becomes 2012-12-31 23:59:59.999999999
+//
+//     Example: 2012-05-12 12:12:12.123456789 becomes 2012-12-31 23:59:59.999999999
+//
 func (dt DateTime) CeilYear() DateTime {
 	return dt.Replace(dt.Year(), 12, 31, 23, 59, 59, 999999999)
 }
 
 // CeilMonth returns a DateTime with all values to "ceil" except year, month, day, hour, minute, second
-// Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-12 23:59:59.999999999
+//
+//     Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-12 23:59:59.999999999
+//
 func (dt DateTime) CeilMonth() DateTime {
 	tempDateTime := dt.Copy()
 	tempDateTime = tempDateTime.ShiftMonths(1)
@@ -364,61 +386,81 @@ func (dt DateTime) CeilMonth() DateTime {
 }
 
 // CeilDay returns a DateTime with all values to "ceil" except year, month, day, minute, second
-// Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-12 23:59:59.999999999
+//
+//     Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-12 23:59:59.999999999
+//
 func (dt DateTime) CeilDay() DateTime {
 	return dt.Replace(dt.Year(), dt.Month(), dt.Day(), 23, 59, 59, 999999999)
 }
 
 // CeilHour returns a DateTime with all values to "ceil" except year, month, day, hour
-// Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-12 12:59:59.999999999
+//
+//     Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-12 12:59:59.999999999
+//
 func (dt DateTime) CeilHour() DateTime {
 	return dt.Replace(dt.Year(), dt.Month(), dt.Day(), dt.Hour(), 59, 59, 999999999)
 }
 
 // CeilMinute returns a DateTime with all values to "ceil" except year, month, day, hour, minute
-// Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-12 12:12:59.999999999
+//
+//     Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-12 12:12:59.999999999
+//
 func (dt DateTime) CeilMinute() DateTime {
 	return dt.Replace(dt.Year(), dt.Month(), dt.Day(), dt.Hour(), dt.Minute(), 59, 999999999)
 }
 
 // CeilSecond returns a DateTime with all values to "ceil" except year, month, day, hour, minute, second
-// Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-12 12:12:12.999999999
+//
+//     Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-12 12:12:12.999999999
+//
 func (dt DateTime) CeilSecond() DateTime {
 	return dt.Replace(dt.Year(), dt.Month(), dt.Day(), dt.Hour(), dt.Minute(), dt.Second(), 999999999)
 }
 
 // SpanYear returns the start and end DateTime of current year span
-// Example 2012-05-12 12:12:12:123456789 becomes (2012-01-01 00:00:00.000000000, 2012-12-31 23:59:59.999999999)
+//
+//     Example 2012-05-12 12:12:12:123456789 becomes (2012-01-01 00:00:00.000000000, 2012-12-31 23:59:59.999999999)
+//
 func (dt DateTime) SpanYear() (DateTime, DateTime) {
 	return dt.FloorYear(), dt.CeilYear()
 }
 
 // SpanMonth returns the start and end DateTime of current month span
-// Example 2012-12-12 12:12:12:123456789 becomes (2012-12-01 00:00:00.000000000, 2012-12-31 23:59:59.999999999)
+//
+//     Example 2012-12-12 12:12:12:123456789 becomes (2012-12-01 00:00:00.000000000, 2012-12-31 23:59:59.999999999)
+//
 func (dt DateTime) SpanMonth() (DateTime, DateTime) {
 	return dt.FloorMonth(), dt.CeilMonth()
 }
 
 // SpanDay returns the start and end DateTime of current day span
-// Example 2012-12-12 12:12:12:123456789 becomes (2012-12-12 00:00:00.000000000, 2012-12-12 23:59:59.999999999)
+//
+//     Example 2012-12-12 12:12:12:123456789 becomes (2012-12-12 00:00:00.000000000, 2012-12-12 23:59:59.999999999)
+//
 func (dt DateTime) SpanDay() (DateTime, DateTime) {
 	return dt.FloorDay(), dt.CeilDay()
 }
 
 // SpanHour returns the start and end DateTime of current hour span
-// Example 2012-12-12 12:12:12:123456789 becomes (2012-12-12 12:00:00.000000000, 2012-12-12 12:59:59.999999999)
+//
+//     Example 2012-12-12 12:12:12:123456789 becomes (2012-12-12 12:00:00.000000000, 2012-12-12 12:59:59.999999999)
+//
 func (dt DateTime) SpanHour() (DateTime, DateTime) {
 	return dt.FloorHour(), dt.CeilHour()
 }
 
 // SpanMinute returns the start and end DateTime of current minute span
-// Example 2012-12-12 12:12:12:123456789 becomes (2012-12-12 12:12:00.000000000, 2012-12-12 12:12:59.999999999)
+//
+//     Example 2012-12-12 12:12:12:123456789 becomes (2012-12-12 12:12:00.000000000, 2012-12-12 12:12:59.999999999)
+//
 func (dt DateTime) SpanMinute() (DateTime, DateTime) {
 	return dt.FloorMinute(), dt.CeilMinute()
 }
 
 // SpanSecond returns the start and end DateTime of current second span
-// Example 2012-12-12 12:12:12:123456789 becomes (2012-12-12 12:12:12.000000000, 2012-12-12 12:12:12.999999999)
+//
+//     Example 2012-12-12 12:12:12:123456789 becomes (2012-12-12 12:12:12.000000000, 2012-12-12 12:12:12.999999999)
+//
 func (dt DateTime) SpanSecond() (DateTime, DateTime) {
 	return dt.FloorSecond(), dt.CeilSecond()
 }
