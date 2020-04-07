@@ -1,8 +1,26 @@
 # Gostradamus: Better DateTimes for Go
 
+## Introduction
+Gostradamus is a Go library that offers a lightweight and human-friendly way to create, transform, format, and parse datetimes.
+It uses the underlying Go `time` library and the main struct DateTime can be easily converted to and from `time.Time`.
+
+Gostradamus is named after the french pharmacist [Nostradamus](https://en.wikipedia.org/wiki/Nostradamus).
+Nostradamus is known for his prophecies, therefore he worked a lot with time, like Gostradamus.
+
+## Features
+
+✅ Easy conversion from existing `time.Time` objects to `gostradamus.DateTime` and back
+
+✅ Timezone-aware and UTC by default
+
+✅ Timezone conversion
+
+✅ Generates time spans, floors, ceilings from second to year
+
+✅ Format with common and known format tokens like `YYYY-MM-DD HH:mm:ss`
+
 ## Table of Contents
-* [Introduction](#introduction)
-* [Features](#features)
+
 * [Usage](#usage)
 + [Types](#types)
 + [Conversion between time.Time and gostradamus.DateTime](#conversion-between-timetime-and-gostradamusdatetime)
@@ -23,25 +41,6 @@
 + [Utils](#utils)
   - [Is between](#is-between)
   - [Iso Calendar](#iso-calendar)
-  
-## Introduction
-Gostradamus is a Go library that offers a lightweight and human-friendly way to create, transform, format, and parse datetimes.
-It uses the underlying Go `time` library and the main struct DateTime can be easily converted to and from `time.Time`.
-
-Gostradamus is named after the french pharmacist [Nostradamus](https://en.wikipedia.org/wiki/Nostradamus).
-Nostradamus is known for his prophecies, therefore he worked a lot with time, like Gostradamus.
-
-## Features
-
-\[✅\] Easy conversion from existing `time.Time` objects to `gostradamus.DateTime` and back
-
-\[✅\] Timezone-aware and UTC by default
-
-\[✅\] Timezone conversion
-
-\[✅\] Generates time spans, floors, ceilings from second to year
-
-\[✅\] Format with common and known format tokens like `YYYY-MM-DD HH:mm:ss`
 
 ## Usage
 
