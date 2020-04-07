@@ -332,9 +332,4 @@ func TestDateTime_CTimeFormat(t *testing.T) {
 		"Sat Feb 15 12:12:12 2020",
 		actual,
 	)
-
-	dateTime := NewUTCDateTime(2020, 2, 15, 12, 12, 12, 0).InTimezone(Europe_Berlin)
-	println(dateTime.String())
-	dateTime = dateTime.InTimezone(America_New_York)
-	println(dateTime.String())
 }
