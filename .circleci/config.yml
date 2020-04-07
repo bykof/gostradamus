@@ -23,6 +23,7 @@ jobs:
       - run: go test -v -race ./...
 
 workflows:
+  version: 2
   build_lint_test:
     jobs:
       - build
