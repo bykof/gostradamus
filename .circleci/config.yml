@@ -1,4 +1,4 @@
-version: 2.1
+version: 2
 
 jobs:
   # This build job just tests that the binary can build. If your project is a
