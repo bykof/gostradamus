@@ -7,19 +7,19 @@ import (
 )
 
 func TestParseToTime(t *testing.T) {
-	actualResult, err := ParseToTime("2019-01-01 12:12:12", "YYYY-MM-DD HH:mm:ss", UTC)
+	actualResult, err := parseToTime("2019-01-01 12:12:12", "YYYY-MM-DD HH:mm:ss", UTC)
 	assert.NoError(t, err)
 	assert.Equal(t, time.Date(2019, 1, 1, 12, 12, 12, 0, time.UTC), actualResult)
 }
 
 func TestParseToTime_Error(t *testing.T) {
-	actualResult, err := ParseToTime("2019-01-01 12:12:12", "YYYY-MM-DD testHH:mm:ss", UTC)
+	actualResult, err := parseToTime("2019-01-01 12:12:12", "YYYY-MM-DD testHH:mm:ss", UTC)
 	assert.Error(t, err)
 	assert.Equal(t, time.Time{}, actualResult)
 }
 
 func TestFormatFromTime(t *testing.T) {
-	actualResult := FormatFromTime(
+	actualResult := formatFromTime(
 		time.Date(2019, 1, 1, 12, 12, 12, 0, time.UTC),
 		"YYYY-MM-DD HH:mm:ss",
 	)

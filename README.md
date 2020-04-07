@@ -108,7 +108,7 @@ Just create the DateTime from scratch:
 
 ```go
 // Create it with a defined timezone as you know it
-dateTime := gostradamus.NewDateTime(2020, 1, 1, 12, 0, 0, 0, gostradamus.Europe_Berlin)
+dateTime := gostradamus.NewDateTime(2020, 1, 1, 12, 0, 0, 0, gostradamus.EuropeBerlin)
 
 // Create it with predefined UTC timezone
 dateTime := gostradamus.NewUTCDateTime(2020, 1, 1, 12, 0, 0, 0)
@@ -142,7 +142,7 @@ dateTime := gostradamus.Now()
 dateTime = gostradamus.UTCNow()
 
 // Current DateTime in given timezone
-dateTime = gostradamus.NowInTimezone(gostradamus.Europe_Paris)
+dateTime = gostradamus.NowInTimezone(gostradamus.EuropeParis)
 ```
 
 ### Timezones
@@ -150,9 +150,9 @@ dateTime = gostradamus.NowInTimezone(gostradamus.Europe_Paris)
 Feel free to use all available timezones, defined [here](https://github.com/bykof/gostradamus/blob/master/timezone_constants.go):
  
 ```go
-gostradamus.Europe_Paris // Europe/Paris
-gostradamus.Europe_Berlin // Europe/Berlin
-gostradamus.America_New_York // America/New_York
+gostradamus.EuropeParis // Europe/Paris
+gostradamus.EuropeBerlin // Europe/Berlin
+gostradamus.AmericaNewYork // America/New_York
 ... and many more
 ```
 
@@ -161,7 +161,7 @@ gostradamus.America_New_York // America/New_York
 Convert between timezones easily:
 
 ```go
-dateTime := gostradamus.NewUTC(2020, 1, 1, 12, 12, 12, 0).InTimezone(gostradamus.Europe_Berlin)
+dateTime := gostradamus.NewUTC(2020, 1, 1, 12, 12, 12, 0).InTimezone(gostradamus.EuropeBerlin)
 println(dateTime.String())
 // 2020-02-15T13:12:12.000000+0100
 
@@ -259,7 +259,7 @@ println(dateTime.String())
 You can also specify a timezone while parsing:
 
 ```go
-dateTime, err := gostradamus.ParseInTimezone("10.02.2010 14:59:53", "DD.MM.YYYY HH:mm:ss", Europe_Berlin)
+dateTime, err := gostradamus.ParseInTimezone("10.02.2010 14:59:53", "DD.MM.YYYY HH:mm:ss", gostradamus.EuropeBerlin)
 println(dateTime.String())
 // 2010-02-10T14:59:53.000000+0100
 ```

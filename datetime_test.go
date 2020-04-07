@@ -17,11 +17,11 @@ func TestParse(t *testing.T) {
 }
 
 func TestParseInTimezone(t *testing.T) {
-	actual, err := ParseInTimezone("2017-07-14T02:40:00.000000+0200", Iso8601TZ, Europe_Berlin)
+	actual, err := ParseInTimezone("2017-07-14T02:40:00.000000+0200", Iso8601TZ, EuropeBerlin)
 	assert.NoError(t, err)
 	assert.Equal(
 		t,
-		NewDateTime(2017, 7, 14, 2, 40, 0, 0, Europe_Berlin),
+		NewDateTime(2017, 7, 14, 2, 40, 0, 0, EuropeBerlin),
 		actual,
 	)
 }
@@ -142,17 +142,17 @@ func TestNewLocalDateTime(t *testing.T) {
 }
 
 func TestDateTime_IsoFormat(t *testing.T) {
-	actual := NewDateTime(2017, 7, 14, 2, 40, 0, 0, Europe_Berlin).IsoFormat()
+	actual := NewDateTime(2017, 7, 14, 2, 40, 0, 0, EuropeBerlin).IsoFormat()
 	assert.Equal(t, actual, "2017-07-14T02:40:00.000000")
 }
 
 func TestDateTime_String(t *testing.T) {
-	actual := NewDateTime(2017, 7, 14, 2, 40, 0, 0, Europe_Berlin).String()
+	actual := NewDateTime(2017, 7, 14, 2, 40, 0, 0, EuropeBerlin).String()
 	assert.Equal(t, actual, "2017-07-14T02:40:00.000000+0200")
 }
 
 func TestDateTime_GoString(t *testing.T) {
-	actual := NewDateTime(2017, 7, 14, 2, 40, 0, 0, Europe_Berlin).GoString()
+	actual := NewDateTime(2017, 7, 14, 2, 40, 0, 0, EuropeBerlin).GoString()
 	assert.Equal(t, actual, "2017-07-14T02:40:00.000000+0200")
 }
 

@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// Datetime reflects time.Time and adds functionality
 type DateTime time.Time
 
 // DateTimeFromTime returns a DateTime with given time.Time
@@ -193,22 +194,22 @@ func (dt DateTime) Copy() DateTime {
 
 // Format the current DateTime with given format to a string
 func (dt DateTime) Format(format string) string {
-	return FormatFromTime(dt.Time(), format)
+	return formatFromTime(dt.Time(), format)
 }
 
 // Parse a string value with given format into a new DateTime
 func Parse(value string, format string) (DateTime, error) {
-	parsedTime, err := ParseToTime(value, format, UTC)
+	parsedTime, err := parseToTime(value, format, UTC)
 	return DateTimeFromTime(parsedTime), err
 }
 
 // ParseInTimezone a string value with given format into a new DateTime in given timezone
 func ParseInTimezone(value string, format string, timezone Timezone) (DateTime, error) {
-	parsedTime, err := ParseToTime(value, format, timezone)
+	parsedTime, err := parseToTime(value, format, timezone)
 	return DateTimeFromTime(parsedTime), err
 }
 
-// InTimeZone sets the current DateTime in the given Timezone and returns a new DateTime
+// InTimezone sets the current DateTime in the given Timezone and returns a new DateTime
 func (dt DateTime) InTimezone(timezone Timezone) DateTime {
 	return DateTimeFromTime(dt.Time().In(timezone.Location()))
 }
@@ -223,7 +224,7 @@ func (dt DateTime) Timezone() Timezone {
 	return Timezone(dt.Time().Location().String())
 }
 
-// UnixTimeStamp returns the unix timestamp as int64
+// UnixTimestamp returns the unix timestamp as int64
 func (dt DateTime) UnixTimestamp() int64 {
 	return dt.Time().Unix()
 }
@@ -352,7 +353,7 @@ func (dt DateTime) CeilYear() DateTime {
 	return dt.Replace(dt.Year(), 12, 31, 23, 59, 59, 999999999)
 }
 
-// CeilYear returns a DateTime with all values to "ceil" except year, month, day, hour, minute, second
+// CeilMonth returns a DateTime with all values to "ceil" except year, month, day, hour, minute, second
 // Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-12 23:59:59.999999999
 func (dt DateTime) CeilMonth() DateTime {
 	tempDateTime := dt.Copy()
@@ -362,19 +363,19 @@ func (dt DateTime) CeilMonth() DateTime {
 	return dt.Replace(dt.Year(), dt.Month(), tempDateTime.Day(), 23, 59, 59, 999999999)
 }
 
-// CeilYear returns a DateTime with all values to "ceil" except year, month, day, minute, second
+// CeilDay returns a DateTime with all values to "ceil" except year, month, day, minute, second
 // Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-12 23:59:59.999999999
 func (dt DateTime) CeilDay() DateTime {
 	return dt.Replace(dt.Year(), dt.Month(), dt.Day(), 23, 59, 59, 999999999)
 }
 
-// CeilYear returns a DateTime with all values to "ceil" except year, month, day, hour
+// CeilHour returns a DateTime with all values to "ceil" except year, month, day, hour
 // Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-12 12:59:59.999999999
 func (dt DateTime) CeilHour() DateTime {
 	return dt.Replace(dt.Year(), dt.Month(), dt.Day(), dt.Hour(), 59, 59, 999999999)
 }
 
-// CeilYear returns a DateTime with all values to "ceil" except year, month, day, hour, minute
+// CeilMinute returns a DateTime with all values to "ceil" except year, month, day, hour, minute
 // Example: 2012-12-12 12:12:12.123456789 becomes 2012-12-12 12:12:59.999999999
 func (dt DateTime) CeilMinute() DateTime {
 	return dt.Replace(dt.Year(), dt.Month(), dt.Day(), dt.Hour(), dt.Minute(), 59, 999999999)

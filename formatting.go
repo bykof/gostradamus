@@ -40,49 +40,49 @@ const (
 	TimezoneWithColon    = FormatToken("zz")
 	TimezoneWithoutColon = FormatToken("Z")
 
-	GoLongMonth             = GoFormatToken("January")
-	GoMonth                 = GoFormatToken("Jan")
-	GoNumMonth              = GoFormatToken("1")
-	GoZeroMonth             = GoFormatToken("01")
-	GoLongWeekDay           = GoFormatToken("Monday")
-	GoWeekDay               = GoFormatToken("Mon")
-	GoDay                   = GoFormatToken("2")
-	GoZeroDay               = GoFormatToken("02")
-	GoZeroYearDay           = GoFormatToken("002")
-	GoHour                  = GoFormatToken("15")
-	GoHour12                = GoFormatToken("3")
-	GoZeroHour12            = GoFormatToken("03")
-	GoMinute                = GoFormatToken("4")
-	GoZeroMinute            = GoFormatToken("04")
-	GoSecond                = GoFormatToken("5")
-	GoZeroSecond            = GoFormatToken("05")
-	GoLongYear              = GoFormatToken("2006")
-	GoYear                  = GoFormatToken("06")
-	GoPM                    = GoFormatToken("PM")
-	Gopm                    = GoFormatToken("pm")
-	GoTZ                    = GoFormatToken("MST")
-	GoMillisecond           = GoFormatToken("000")
-	GoMicrosecond           = GoFormatToken("000000")
-	GoNanoSecond            = GoFormatToken("000000000")
-	GoISO8601TZ             = GoFormatToken("Z0700") // prints Z for UTC
-	GoISO8601SecondsTZ      = GoFormatToken("Z070000")
-	GoISO8601ShortTZ        = GoFormatToken("Z07")
-	GoISO8601ColonTZ        = GoFormatToken("Z07:00") // prints Z for UTC
-	GoISO8601ColonSecondsTZ = GoFormatToken("Z07:00:00")
-	GoNumTZ                 = GoFormatToken("-0700") // always numeric
-	GoNumSecondsTz          = GoFormatToken("-070000")
-	GoNumShortTZ            = GoFormatToken("-07")    // always numeric
-	GoNumColonTZ            = GoFormatToken("-07:00") // always numeric
-	GoNumColonSecondsTZ     = GoFormatToken("-07:00:00")
+	GoLongMonth             = goFormatToken("January")
+	GoMonth                 = goFormatToken("Jan")
+	GoNumMonth              = goFormatToken("1")
+	GoZeroMonth             = goFormatToken("01")
+	GoLongWeekDay           = goFormatToken("Monday")
+	GoWeekDay               = goFormatToken("Mon")
+	GoDay                   = goFormatToken("2")
+	GoZeroDay               = goFormatToken("02")
+	GoZeroYearDay           = goFormatToken("002")
+	GoHour                  = goFormatToken("15")
+	GoHour12                = goFormatToken("3")
+	GoZeroHour12            = goFormatToken("03")
+	GoMinute                = goFormatToken("4")
+	GoZeroMinute            = goFormatToken("04")
+	GoSecond                = goFormatToken("5")
+	GoZeroSecond            = goFormatToken("05")
+	GoLongYear              = goFormatToken("2006")
+	GoYear                  = goFormatToken("06")
+	GoPM                    = goFormatToken("PM")
+	Gopm                    = goFormatToken("pm")
+	GoTZ                    = goFormatToken("MST")
+	GoMillisecond           = goFormatToken("000")
+	GoMicrosecond           = goFormatToken("000000")
+	GoNanoSecond            = goFormatToken("000000000")
+	GoISO8601TZ             = goFormatToken("Z0700") // prints Z for UTC
+	GoISO8601SecondsTZ      = goFormatToken("Z070000")
+	GoISO8601ShortTZ        = goFormatToken("Z07")
+	GoISO8601ColonTZ        = goFormatToken("Z07:00") // prints Z for UTC
+	GoISO8601ColonSecondsTZ = goFormatToken("Z07:00:00")
+	GoNumTZ                 = goFormatToken("-0700") // always numeric
+	GoNumSecondsTz          = goFormatToken("-070000")
+	GoNumShortTZ            = goFormatToken("-07")    // always numeric
+	GoNumColonTZ            = goFormatToken("-07:00") // always numeric
+	GoNumColonSecondsTZ     = goFormatToken("-07:00:00")
 )
 
 type FormatToken string
-type FormatTokens []FormatToken
-type GoFormatToken string
-type GoFormatTokens []GoFormatToken
+type formatTokens []FormatToken
+type goFormatToken string
+type goFormatTokens []goFormatToken
 
 var (
-	FormatTokenMap = map[FormatToken]GoFormatToken{
+	formatTokenMap = map[FormatToken]goFormatToken{
 		YearFull:                 GoLongYear,
 		YearShort:                GoYear,
 		MonthFull:                GoLongMonth,
@@ -109,7 +109,7 @@ var (
 		TimezoneWithoutColon:     GoISO8601TZ,
 	}
 
-	AllFormatTokens = FormatTokens{
+	allFormatTokens = formatTokens{
 		YearFull,
 		YearShort,
 		MonthFull,
@@ -137,7 +137,7 @@ var (
 	}
 )
 
-func (fts FormatTokens) ToStringSlice() []string {
+func (fts formatTokens) toStringSlice() []string {
 	var stringSlice []string
 	for _, formatToken := range fts {
 		stringSlice = append(stringSlice, string(formatToken))
@@ -145,16 +145,17 @@ func (fts FormatTokens) ToStringSlice() []string {
 	return stringSlice
 }
 
-func FormatTokenRegex() string {
-	return strings.Join(AllFormatTokens.ToStringSlice(), "|")
+func formatTokenRegex() string {
+	return strings.Join(allFormatTokens.toStringSlice(), "|")
 }
 
+// translateFormat translates all mapped formats to Go specific language
 func translateFormat(format string) string {
-	re := regexp.MustCompile(FormatTokenRegex())
+	re := regexp.MustCompile(formatTokenRegex())
 	format = string(re.ReplaceAllFunc(
 		[]byte(format),
 		func(bytes []byte) []byte {
-			if goFormatToken, ok := FormatTokenMap[FormatToken(bytes)]; ok {
+			if goFormatToken, ok := formatTokenMap[FormatToken(bytes)]; ok {
 				return []byte(goFormatToken)
 			}
 			panic(FormatTokenIsNotMapped(string(bytes)))
@@ -163,17 +164,17 @@ func translateFormat(format string) string {
 	return format
 }
 
-// ParseToTime parses the value with given format to a time.Time
+// parseToTime parses the value with given format to a time.Time
 // error if the value could not be parsed
 //
-// ParseToTime panics if the formatToken is not mapped correctly
-func ParseToTime(value string, format string, timezone Timezone) (time.Time, error) {
+// parseToTime panics if the formatToken is not mapped correctly
+func parseToTime(value string, format string, timezone Timezone) (time.Time, error) {
 	format = translateFormat(format)
 	return time.ParseInLocation(format, value, timezone.Location())
 }
 
-//
-func FormatFromTime(value time.Time, format string) string {
+// formatFromTime formats value as time.Time with given format to a string
+func formatFromTime(value time.Time, format string) string {
 	format = translateFormat(format)
 	return value.Format(format)
 }
