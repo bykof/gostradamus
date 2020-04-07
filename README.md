@@ -2,7 +2,7 @@
 
 ## Introduction
 Gostradamus is a Go library that offers a lightweight and human-friendly way to create, transform, format, and parse datetimes.
-It uses the underlying Go `time` library and the main struct DateTime can be easily converted to and from `time.Time`.
+It uses the underlying Go `time` library and the main gostradamus' type `DateTime` can be easily converted to and from `time.Time`.
 
 Gostradamus is named after the french pharmacist [Nostradamus](https://en.wikipedia.org/wiki/Nostradamus).
 Nostradamus is known for his prophecies, therefore he worked a lot with time, like Gostradamus.
@@ -21,7 +21,6 @@ Nostradamus is known for his prophecies, therefore he worked a lot with time, li
 
 ## Table of Contents
 
-* [Usage](#usage)
 + [Types](#types)
 + [Conversion between time.Time and gostradamus.DateTime](#conversion-between-timetime-and-gostradamusdatetime)
 + [Creation](#creation)
