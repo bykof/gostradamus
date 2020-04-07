@@ -76,7 +76,7 @@ type Timezone string
 
 `DateTime` contains all the creation, transforming, formatting and parsing functions.
 
-`Timezone` is just a string type but gostradamus has all timezones defined as constants. Look [here]().
+`Timezone` is just a string type but gostradamus has all timezones defined as constants. Look [here](https://github.com/bykof/gostradamus/blob/master/timezone_constants.go).
 
 ### Conversion between time.Time and gostradamus.DateTime
 
@@ -144,7 +144,7 @@ dateTime = gostradamus.NowInTimezone(gostradamus.Europe_Paris)
 
 ### Timezones
 
-Feel free to use all available timezones, defined [here]():
+Feel free to use all available timezones, defined [here](https://github.com/bykof/gostradamus/blob/master/timezone_constants.go):
  
 ```go
 gostradamus.Europe_Paris // Europe/Paris
