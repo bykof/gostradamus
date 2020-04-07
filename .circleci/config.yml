@@ -15,6 +15,7 @@ jobs:
     steps:
       - checkout
       - run: golangci-lint run
+
   test:
     docker:
       - image: golang:1.14
