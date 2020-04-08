@@ -4,6 +4,10 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/bykof/gostradamus)](https://goreportcard.com/report/github.com/bykof/gostradamus)
 [![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/bykof/gostradamus)
 
+<p style="text-align: center;">
+    <img src="https://raw.githubusercontent.com/bykof/gostradamus/master/docs/resources/logo.png"  alt="Gostradamus logo" width="200"/>
+</p>
+
 ## Introduction
 Gostradamus is a Go library that offers a lightweight and human-friendly way to create, transform, format, and parse datetimes.
 It uses the underlying Go `time` library and the main gostradamus' type `DateTime` can be easily converted to and from `time.Time`.
