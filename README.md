@@ -5,7 +5,7 @@
 [![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/bykof/gostradamus)
 
 <p style="text-align: center;">
-    <img src="https://github.com/bykof/gostradamus/blob/master/docs/resources/logo.png?raw=true"  alt="Gostradamus logo" width="200"/>
+    <img src="https://raw.githubusercontent.com/bykof/gostradamus/master/docs/resources/logo.png"  alt="Gostradamus logo" width="200"/>
 </p>
 
 ## Introduction
