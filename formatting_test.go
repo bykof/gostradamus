@@ -20,8 +20,29 @@ func TestParseToTime_Error(t *testing.T) {
 
 func TestFormatFromTime(t *testing.T) {
 	actualResult := formatFromTime(
-		time.Date(2019, 1, 1, 12, 12, 12, 0, time.UTC),
-		"YYYY-MM-DD HH:mm:ss",
+		time.Date(2011, 4, 5, 15, 7, 8, 9, time.UTC),
+		"YYYY YY MMMM MMM MM M DDDD DD D dddd ddd HH hh h A a mm m ss s S ZZZ zz Z",
 	)
-	assert.Equal(t, actualResult, "2019-01-01 12:12:12")
+	assert.Equal(
+		t,
+		"2011 11 April Apr 04 4 095 05 5 Tuesday Tue 15 03 3 PM pm 07 7 08 8 000000 UTC Z Z",
+		actualResult,
+	)
+
+	location, err := time.LoadLocation("Japan")
+	if err != nil {
+		panic(err)
+	}
+
+	date := time.Date(2011, 4, 5, 15, 7, 8, 9, location)
+	actualResult = formatFromTime(
+		date,
+		"ZZZ zz Z",
+	)
+
+	assert.Equal(
+		t,
+		"JST +09:00 +0900",
+		actualResult,
+	)
 }

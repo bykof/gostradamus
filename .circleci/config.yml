@@ -22,7 +22,8 @@ jobs:
     working_directory: /go/src/gostradamus
     steps:
       - checkout
-      - run: go test -v -race ./...
+      - run: go test -v -race -cover -coverprofile coverage.txt -covermode=atomic ./...
+      - run: bash <(curl -s https://codecov.io/bash)
 
 workflows:
   version: 2
