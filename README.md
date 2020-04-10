@@ -6,6 +6,7 @@
 
 [![Gostradamus](https://img.shields.io/circleci/build/github/bykof/gostradamus)](https://app.circleci.com/pipelines/github/bykof/gostradamus)
 [![Go Report Card](https://goreportcard.com/badge/github.com/bykof/gostradamus)](https://goreportcard.com/report/github.com/bykof/gostradamus)
+[![codecov](https://codecov.io/gh/bykof/gostradamus/branch/master/graph/badge.svg)](https://codecov.io/gh/bykof/gostradamus)
 [![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/bykof/gostradamus)
 
 ## Introduction
