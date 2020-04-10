@@ -236,7 +236,6 @@ func TestDateTime_CeilMonth(t *testing.T) {
 	assert.Equal(t, NewUTCDateTime(2020, 2, 29, 23, 59, 59, 999999999), actual)
 }
 
-
 func TestDateTime_CeilWeek(t *testing.T) {
 	actual := NewUTCDateTime(2012, 12, 16, 12, 12, 49, 234).CeilWeek()
 	assert.Equal(t, NewUTCDateTime(2012, 12, 16, 23, 59, 59, 999999999), actual)
