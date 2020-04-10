@@ -150,7 +150,7 @@ func (dt DateTime) Time() time.Time {
 //
 // For Example:
 //
-//     2017-07-14T02:40:00.000000+0200
+//     2017-07-14T02:40:00.000000
 //
 func (dt DateTime) IsoFormat() string {
 	return dt.Format(Iso8601)
@@ -160,7 +160,7 @@ func (dt DateTime) IsoFormat() string {
 //
 // For Example:
 //
-//     2017-07-14T02:40:00.000000
+//     2017-07-14T02:40:00.000000+0200
 //
 func (dt DateTime) IsoFormatTZ() string {
 	return dt.Format(Iso8601TZ)
