@@ -192,6 +192,20 @@ func TestDateTime_FloorMonth(t *testing.T) {
 	assert.Equal(t, NewUTCDateTime(2020, 12, 1, 0, 0, 0, 0), actual)
 }
 
+func TestDateTime_FloorWeek(t *testing.T) {
+	// Weekday is already monday
+	actual := NewUTCDateTime(2012, 12, 10, 12, 12, 49, 234).FloorWeek()
+	assert.Equal(t, NewUTCDateTime(2012, 12, 10, 0, 0, 0, 0), actual)
+
+	// Weekday is sunday
+	actual = NewUTCDateTime(2012, 12, 16, 12, 12, 49, 234).FloorWeek()
+	assert.Equal(t, NewUTCDateTime(2012, 12, 10, 0, 0, 0, 0), actual)
+
+	// Weekday is other day
+	actual = NewUTCDateTime(2012, 12, 12, 12, 12, 49, 234).FloorWeek()
+	assert.Equal(t, NewUTCDateTime(2012, 12, 10, 0, 0, 0, 0), actual)
+}
+
 func TestDateTime_FloorDay(t *testing.T) {
 	actual := NewUTCDateTime(2020, 12, 15, 12, 12, 49, 234).FloorDay()
 	assert.Equal(t, NewUTCDateTime(2020, 12, 15, 0, 0, 0, 0), actual)
@@ -220,6 +234,15 @@ func TestDateTime_CeilYear(t *testing.T) {
 func TestDateTime_CeilMonth(t *testing.T) {
 	actual := NewUTCDateTime(2020, 2, 15, 12, 12, 49, 234).CeilMonth()
 	assert.Equal(t, NewUTCDateTime(2020, 2, 29, 23, 59, 59, 999999999), actual)
+}
+
+
+func TestDateTime_CeilWeek(t *testing.T) {
+	actual := NewUTCDateTime(2012, 12, 16, 12, 12, 49, 234).CeilWeek()
+	assert.Equal(t, NewUTCDateTime(2012, 12, 16, 23, 59, 59, 999999999), actual)
+
+	actual = NewUTCDateTime(2012, 12, 12, 12, 12, 49, 234).CeilWeek()
+	assert.Equal(t, NewUTCDateTime(2012, 12, 16, 23, 59, 59, 999999999), actual)
 }
 
 func TestDateTime_CeilDay(t *testing.T) {
