@@ -74,7 +74,7 @@ func main() {
 ## Usage
 
 This part introduces all basic features of gostradamus.
-Surely there are more, just look them up in the [offical documentation]().
+Surely there are more, just look them up in the [offical documentation](https://pkg.go.dev/github.com/bykof/gostradamus?tab=doc).
 
 ### Types
 
