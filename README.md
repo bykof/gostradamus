@@ -331,7 +331,7 @@ println(end.String())
 
 Here is the section for some nice helper functions that will save you some time.
 
-#### Is between
+#### IsBetween
 
 ```go
 isBetween := gostradamus.NewUTCDateTime(2020, 1, 1, 12, 0, 0, 0).IsBetween(
@@ -349,7 +349,7 @@ println(isBetween)
 // false
 ```
 
-#### Iso Calendar
+#### IsoCalendar
 
 Retrieve year, month, day directly as a 3-tuple:
  
