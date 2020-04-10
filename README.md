@@ -25,6 +25,8 @@ He is known for his prophecies, therefore he worked a lot with time, like Gostra
 
 ✅ Generates time spans, floors, ceilings from second to year
 
+✅ Weeks manipulation
+
 ✅ Format with common and known format tokens like `YYYY-MM-DD HH:mm:ss`
 
 
