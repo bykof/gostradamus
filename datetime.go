@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// WeekInDays is the integer value how many days a week has
 const WeekInDays = 7
 
 // DateTime reflects time.Time and adds functionality of this library
