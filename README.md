@@ -198,6 +198,11 @@ println(dateTime.String())
 // 2019-12-22T01:01:01.000000+0000
 
 dateTime = gostradamus.NewUTCDateTime(2020, 1, 1, 1, 1, 1, 1)
+dateTime = dateTime.ShiftWeeks(2)
+println(dateTime.String())
+// 2020-01-15T01:01:01.000000+0000
+
+dateTime = gostradamus.NewUTCDateTime(2020, 1, 1, 1, 1, 1, 1)
 dateTime = dateTime.Shift(0, 1, 10, 0, 0, 0, 0)
 println(dateTime.String())
 // 2020-02-11T01:01:01.000000+0000
@@ -327,6 +332,12 @@ println(start.String())
 // 2017-07-14T00:00:00.000000Z
 println(end.String())
 // 2017-07-14T23:59:59.999999Z
+
+start, end = NewDateTime(2012, 12, 12, 2, 40, 0, 0, UTC).SpanWeek()
+println(start.String())
+// 2012-12-10T00:00:00.000000Z
+println(end.String())
+// 2012-12-16T23:59:59.999999Z
 ```
 
 ### Utils
