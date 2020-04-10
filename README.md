@@ -18,17 +18,17 @@ He is known for his prophecies, therefore he worked a lot with time, like Gostra
 
 ## Features
 
-✅ Easy conversion from existing `time.Time` objects to `gostradamus.DateTime` and back
-
-✅ Timezone-aware and UTC by default
-
-✅ Timezone conversion
-
-✅ Generates time spans, floors, ceilings from second to year
-
-✅ Weeks manipulation
+✅ Easy conversion between `time.Time` and `gostradamus.DateTime`
 
 ✅ Format with common and known format tokens like `YYYY-MM-DD HH:mm:ss`
+
+✅ Generates time spans, floors, ceilings from second to year (weeks included)
+
+✅ Weeks manipulation and helper functions
+
+✅ Timezone-aware with conversion
+
+✅ Fully tested and ready for production
 
 
 ## Basic Usage
@@ -47,6 +47,10 @@ func main() {
     dateTime = dateTime.ShiftMonths(-5).ShiftDays(2)
     println(dateTime.Format("DD.MM.YYYY HH:mm:ss"))
     // 16.02.2017 02:40:00
+    
+    start, end := dateTime.SpanWeek()
+    println(start.String(), end.String())
+    // 2017-02-13T00:00:00.000000Z 2017-02-19T23:59:59.999999Z
 }
 ```
 
@@ -56,17 +60,13 @@ func main() {
 + [Conversion between time.Time and gostradamus.DateTime](#conversion-between-timetime-and-gostradamusdatetime)
 + [Creation](#creation)
 + [Timezones](#timezones)
-  - [Converting](#converting)
-+ [Manipulating](#manipulating)
-  - [Shift](#shift)
-  - [Replace](#replace)
-+ [Parsing + Formatting](#parsing---formatting)
-  - [Token Table](#token-table)
-  - [Parsing](#parsing)
-  - [Formatting](#formatting)
-+ [Floor + Ceil](#floor---ceil)
-  - [Floor](#floor)
-  - [Ceil](#ceil)
++ [Shift](#shift)
++ [Replace](#replace)
++ [Token Table](#token-table)
++ [Parsing](#parsing)
++ [Formatting](#formatting)
++ [Floor](#floor)
++ [Ceil](#ceil)
 + [Spans](#spans)
 + [Utils](#utils)
   - [Is between](#is-between)
@@ -164,8 +164,6 @@ gostradamus.AmericaNewYork // America/New_York
 ... and many more
 ```
 
-#### Converting
-
 Convert between timezones easily:
 
 ```go
@@ -178,10 +176,7 @@ println(dateTime.String())
 // 2020-02-15T07:12:12.000000-0500
 ```
 
-
-### Manipulating
-
-#### Shift
+### Shift
 
 Shifting helps you to add or subtract years, months, days, hours, minutes, seconds, milliseconds, microseconds, and nanoseconds.
 
@@ -209,7 +204,7 @@ println(dateTime.String())
 // 2020-02-11T01:01:01.000000+0000
 ``` 
 
-#### Replace
+### Replace
 
 Replacing values can be done easily.
 
@@ -225,12 +220,7 @@ println(dateTime.String())
 // 2010-02-01T01:01:01.000000+0000
 ```
 
-### Parsing + Formatting
-
-Parse strings easily with well-known tokens.
-> Please consider that you cannot put custom tokens or custom letters into the *parsing* string 
-
-#### Token Table
+### Token Table
 
 |              	| Token 	| Output                                  	|
 |--------------	|-------	|-----------------------------------------	|
@@ -259,7 +249,9 @@ Parse strings easily with well-known tokens.
 |              	| zz    	| -07:00, -06:00 … +06:00, +07:00, +08, Z 	|
 |              	| Z     	| -0700, -0600 … +0600, +0700, +08, Z     	|
 
-#### Parsing
+### Parsing
+
+> Please consider that you cannot put custom tokens or custom letters into the *parsing* string 
 
 Easily parse with `Parse`:
 
@@ -277,7 +269,7 @@ println(dateTime.String())
 // 2010-02-10T14:59:53.000000+0100
 ```
 
-#### Formatting
+### Formatting
 
 Formatting is as easy as parsing:
 
@@ -287,13 +279,7 @@ println(dateTimeString)
 // 14.07.2017 Time: 02:40:00
 ```
 
-### Floor + Ceil
-
-Sometimes you need quickly the start of current day or the last day of your DateTime's month. 
-
-That's why there is floor and ceil
-
-#### Floor
+### Floor
 
 ```go
 dateTimeString := gostradamus.NewDateTime(2017, 7, 14, 2, 40, 0, 0, UTC).FloorDay()
@@ -305,7 +291,7 @@ println(dateTimeString.String())
 // 2017-07-14T02:00:00.000000Z
 ```
 
-#### Ceil
+### Ceil
 
 ```go
 dateTimeString := gostradamus.NewDateTime(2017, 7, 14, 2, 40, 0, 0, UTC).CeilMonth()
