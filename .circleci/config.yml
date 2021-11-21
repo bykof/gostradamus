@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: golang:1.14-alpine
+      - image: golang:1.17-alpine
     working_directory: /go/src/gostradamus
     steps:
       - checkout
@@ -11,14 +11,14 @@ jobs:
 
   lint:
     docker:
-      - image: golangci/golangci-lint:v1.23-alpine
+      - image: golangci/golangci-lint:v1.43-alpine
     steps:
       - checkout
       - run: golangci-lint run
 
   test:
     docker:
-      - image: golang:1.14
+      - image: golang:1.17
     working_directory: /go/src/gostradamus
     steps:
       - checkout
