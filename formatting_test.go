@@ -1,9 +1,10 @@
 package gostradamus
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestParseToTime(t *testing.T) {
@@ -16,6 +17,12 @@ func TestParseToTime_Error(t *testing.T) {
 	actualResult, err := parseToTime("2019-01-01 12:12:12", "YYYY-MM-DD testHH:mm:ss", UTC)
 	assert.Error(t, err)
 	assert.Equal(t, time.Time{}, actualResult)
+}
+
+func TestParseToTimeOrdinal(t *testing.T) {
+	actualResult, err := parseToTime("Tuesday 5th April 2011", "dddd Do MMMM YYYY", UTC)
+	assert.NoError(t, err)
+	assert.Equal(t, time.Date(2011, 4, 5, 0, 0, 0, 0, time.UTC), actualResult)
 }
 
 func TestFormatFromTime(t *testing.T) {
@@ -43,6 +50,18 @@ func TestFormatFromTime(t *testing.T) {
 	assert.Equal(
 		t,
 		"JST +09:00 +0900",
+		actualResult,
+	)
+}
+
+func TestOrdinal(t *testing.T) {
+	actualResult := formatFromTime(
+		time.Date(2011, 4, 5, 15, 7, 8, 9, time.UTC),
+		"dddd Do MMMM YYYY",
+	)
+	assert.Equal(
+		t,
+		"Tuesday 5th April 2011",
 		actualResult,
 	)
 }

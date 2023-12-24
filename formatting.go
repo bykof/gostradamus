@@ -4,6 +4,8 @@ import (
 	"regexp"
 	"strings"
 	"time"
+
+	"github.com/dustin/go-humanize"
 )
 
 // All FormatTokens for parsing and formatting with DateTime
@@ -19,6 +21,7 @@ const (
 	DayOfYearZeroPadded  = FormatToken("DDDD")
 	DayOfMonthZeroPadded = FormatToken("DD")
 	DayOfMonthShort      = FormatToken("D")
+	DayOfMonthOrdinal    = FormatToken("Do")
 
 	DayOfWeekFullName = FormatToken("dddd")
 	DayOfWeekAbbr     = FormatToken("ddd")
@@ -48,6 +51,7 @@ const (
 	GoLongWeekDay           = goFormatToken("Monday")
 	GoWeekDay               = goFormatToken("Mon")
 	GoDay                   = goFormatToken("2")
+	GoDayOrdinal            = goFormatToken("Do")
 	GoZeroDay               = goFormatToken("02")
 	GoZeroYearDay           = goFormatToken("002")
 	GoHour                  = goFormatToken("15")
@@ -94,6 +98,7 @@ var (
 		DayOfMonthZeroPadded:     GoZeroDay,
 		DayOfMonthShort:          GoDay,
 		DayOfWeekFullName:        GoLongWeekDay,
+		DayOfMonthOrdinal:        GoDayOrdinal,
 		DayOfWeekAbbr:            GoWeekDay,
 		TwentyFourHourZeroPadded: GoHour,
 		TwelveHourZeroPadded:     GoZeroHour12,
@@ -119,6 +124,7 @@ var (
 		MonthShort,
 		DayOfYearZeroPadded,
 		DayOfMonthZeroPadded,
+		DayOfMonthOrdinal,
 		DayOfMonthShort,
 		DayOfWeekFullName,
 		DayOfWeekAbbr,
@@ -162,6 +168,7 @@ func translateFormat(format string) string {
 			panic(FormatTokenIsNotMapped(string(bytes)))
 		},
 	))
+
 	return format
 }
 
@@ -170,12 +177,44 @@ func translateFormat(format string) string {
 //
 // parseToTime panics if the formatToken is not mapped correctly
 func parseToTime(value string, format string, timezone Timezone) (time.Time, error) {
+	re := regexp.MustCompile(formatTokenRegex())
+
+	format = string(re.ReplaceAllFunc(
+		[]byte(format),
+		func(bytes []byte) []byte {
+			if FormatToken(bytes) == FormatToken(DayOfMonthOrdinal) {
+				// todo: prone to accidental replacements of said matches when used incidentally outside of 'Do' context
+				replacer := strings.NewReplacer(
+					"th", "",
+					"rd", "",
+					"st", "",
+					"nd", "",
+				)
+
+				value = replacer.Replace(value)
+
+				return []byte(DayOfMonthShort)
+			}
+
+			return bytes
+		},
+	))
 	format = translateFormat(format)
+
 	return time.ParseInLocation(format, value, timezone.Location())
 }
 
 // formatFromTime formats value as time.Time with given format to a string
 func formatFromTime(value time.Time, format string) string {
 	format = translateFormat(format)
-	return value.Format(format)
+
+	v := value.Format(format)
+
+	v = strings.ReplaceAll(v, string(GoDayOrdinal), dayOrdinal(value))
+
+	return v
+}
+
+func dayOrdinal(t time.Time) string {
+	return humanize.Ordinal(t.Day())
 }
