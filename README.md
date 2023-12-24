@@ -11,8 +11,11 @@
 [![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white&style=flat-square)](https://pkg.go.dev/github.com/bykof/gostradamus)
 
 ## Introduction
-Gostradamus is a Go library that offers a lightweight and human-friendly way to create, transform, format, and parse datetimes.
-It uses the underlying Go `time` library and the main gostradamus' type `DateTime` can be easily converted to and from `time.Time`.
+
+Gostradamus is a Go library that offers a lightweight and human-friendly way to create, transform, format, and parse
+datetimes.
+It uses the underlying Go `time` library and the main gostradamus' type `DateTime` can be easily converted to and
+from `time.Time`.
 
 Gostradamus is named after the french pharmacist [Nostradamus](https://en.wikipedia.org/wiki/Nostradamus).
 He is known for his prophecies, therefore he worked a lot with time, like Gostradamus.
@@ -31,7 +34,6 @@ He is known for his prophecies, therefore he worked a lot with time, like Gostra
 
 ✅ Fully tested and ready for production
 
-
 ## Basic Usage
 
 ```go
@@ -40,24 +42,24 @@ package main
 import "github.com/bykof/gostradamus"
 
 func main() {
-    // Easy parsing
-    dateTime, err := gostradamus.Parse("14.07.2017 02:40:00", "DD.MM.YYYY HH:mm:ss")
-    if err != nil {
-        panic(err)
-    }
-    
-    // Easy manipulation 
-    dateTime = dateTime.ShiftMonths(-5).ShiftDays(2)
-    
-    // Easy formatting
-    println(dateTime.Format("DD.MM.YYYY HH:mm:ss"))
-    // 16.02.2017 02:40:00
-    
-    // Easy helper functions
-    start, end := dateTime.SpanWeek()
-    
-    println(start.String(), end.String())
-    // 2017-02-13T00:00:00.000000Z 2017-02-19T23:59:59.999999Z
+	// Easy parsing
+	dateTime, err := gostradamus.Parse("14.07.2017 02:40:00", "DD.MM.YYYY HH:mm:ss")
+	if err != nil {
+		panic(err)
+	}
+
+	// Easy manipulation 
+	dateTime = dateTime.ShiftMonths(-5).ShiftDays(2)
+
+	// Easy formatting
+	println(dateTime.Format("DD.MM.YYYY HH:mm:ss"))
+	// 16.02.2017 02:40:00
+
+	// Easy helper functions
+	start, end := dateTime.SpanWeek()
+
+	println(start.String(), end.String())
+	// 2017-02-13T00:00:00.000000Z 2017-02-19T23:59:59.999999Z
 }
 ```
 
@@ -76,19 +78,21 @@ func main() {
 + [Ceil](#ceil)
 + [Spans](#spans)
 + [Utils](#utils)
-  - [IsBetween](#isBetween)
-  - [IsoCalendar](#isoCalendar)
+    - [IsBetween](#isBetween)
+    - [IsoCalendar](#isoCalendar)
 + [Contribution](#contribution)
-+ [License](#license)  
++ [License](#license)
 
 ## Usage
 
 This part introduces all basic features of gostradamus.
-Surely there are more, just look them up in the [offical documentation](https://pkg.go.dev/github.com/bykof/gostradamus?tab=doc).
+Surely there are more, just look them up in
+the [offical documentation](https://pkg.go.dev/github.com/bykof/gostradamus?tab=doc).
 
 ## Types
 
 There are two types in this package, which are important to know:
+
 ```go
 type DateTime time.Time
 type Timezone string
@@ -96,11 +100,12 @@ type Timezone string
 
 `DateTime` contains all the creation, transforming, formatting and parsing functions.
 
-`Timezone` is just a string type but gostradamus has all timezones defined as constants. Look [here](https://github.com/bykof/gostradamus/blob/master/timezone_constants.go).
+`Timezone` is just a string type but gostradamus has all timezones defined as constants.
+Look [here](https://github.com/bykof/gostradamus/blob/master/timezone_constants.go).
 
 ## Conversion between time.Time and gostradamus.DateTime
 
-You can easily convert between gostradamus.DateTime and time.Time package. 
+You can easily convert between gostradamus.DateTime and time.Time package.
 Either with helper functions or with golang's [type conversion](https://tour.golang.org/basics/13)
 
 ```go
@@ -135,22 +140,25 @@ dateTime := gostradamus.NewLocalDateTime(2020, 1, 1, 12, 0, 0, 0)
 ```
 
 Or create a DateTime from an ISO-8601 format:
+
 ```go
 dateTime := gostradamus.Parse("2017-07-14T02:40:00.000000+0200", gostradamus.Iso8601)
 ```
 
 Or from a custom format:
+
 ```go
 dateTime := gostradamus.Parse("10.02.2010 14:59:53", "DD.MM.YYYY HH:mm:ss")
 ```
 
-
 Or an UNIX timestamp for example:
+
 ```go 
 dateTime := gostradamus.FromUnixTimestamp(1500000000)
 ```
 
 Or different ways of the current datetime:
+
 ```go
 // Current DateTime in local timezone
 dateTime := gostradamus.Now()
@@ -164,10 +172,11 @@ dateTime = gostradamus.NowInTimezone(gostradamus.EuropeParis)
 
 ## Timezones
 
-Feel free to use all available timezones, defined [here](https://github.com/bykof/gostradamus/blob/master/timezone_constants.go):
- 
+Feel free to use all available timezones,
+defined [here](https://github.com/bykof/gostradamus/blob/master/timezone_constants.go):
+
 ```go
-gostradamus.EuropeParis // Europe/Paris
+gostradamus.EuropeParis  // Europe/Paris
 gostradamus.EuropeBerlin // Europe/Berlin
 gostradamus.AmericaNewYork // America/New_York
 ... and many more
@@ -187,7 +196,8 @@ println(dateTime.String())
 
 ## Shift
 
-Shifting helps you to add or subtract years, months, days, hours, minutes, seconds, milliseconds, microseconds, and nanoseconds.
+Shifting helps you to add or subtract years, months, days, hours, minutes, seconds, milliseconds, microseconds, and
+nanoseconds.
 
 To add a value use positive integer, to subtract use negative integer.
 
@@ -231,36 +241,37 @@ println(dateTime.String())
 
 ## Token Table
 
-|              	| Token 	| Output                                  	|
-|--------------	|-------	|-----------------------------------------	|
-| Year         	| YYYY  	| 2000, 2001, 2002 … 2012, 2013           	|
-|              	| YY    	| 00, 01, 02 … 12, 13                     	|
-| Month        	| MMMM  	| January, February, March …              	|
-|              	| MMM   	| Jan, Feb, Mar …                         	|
-|              	| MM    	| 01, 02, 03 … 11, 12                     	|
-|              	| M     	| 1, 2, 3 … 11, 12                        	|
-| Day of Year  	| DDDD  	| 001, 002, 003 … 364, 365                	|
-| Day of Month 	| DD    	| 01, 02, 03 … 30, 31                     	|
-|              	| D     	| 1, 2, 3 … 30, 31                        	|
-| Day of Week  	| dddd  	| Monday, Tuesday, Wednesday …            	|
-|              	| ddd   	| Mon, Tue, Wed …                         	|
-| Hour         	| HH    	| 00, 01, 02 … 23, 24                     	|
-|              	| hh    	| 01, 02, 03 … 11, 12                     	|
-|              	| h     	| 1, 2, 3 … 11, 12                        	|
-| AM / PM      	| A     	| AM, PM                                  	|
-|              	| a     	| am, pm                                  	|
-| Minute       	| mm    	| 00, 01, 02 … 58, 59                     	|
-|              	| m     	| 0, 1, 2 … 58, 59                        	|
-| Second       	| ss    	| 00, 01, 02 … 58, 59                     	|
-|              	| s     	| 0, 1, 2 … 58, 59                        	|
-| Microsecond  	| S     	| 000000 … 999999                         	|
-| Timezone     	| ZZZ   	| Asia/Baku, Europe/Warsaw, GMT           	|
-|              	| zz    	| -07:00, -06:00 … +06:00, +07:00, +08, Z 	|
-|              	| Z     	| -0700, -0600 … +0600, +0700, +08, Z     	|
+| 	              | Token 	 | Output                                  	 |
+|----------------|---------|-------------------------------------------|
+| Year         	 | YYYY  	 | 2000, 2001, 2002 … 2012, 2013           	 |
+| 	              | YY    	 | 00, 01, 02 … 12, 13                     	 |
+| Month        	 | MMMM  	 | January, February, March …              	 |
+| 	              | MMM   	 | Jan, Feb, Mar …                         	 |
+| 	              | MM    	 | 01, 02, 03 … 11, 12                     	 |
+| 	              | M     	 | 1, 2, 3 … 11, 12                        	 |
+| Day of Year  	 | DDDD  	 | 001, 002, 003 … 364, 365                	 |
+| Day of Month 	 | DD    	 | 01, 02, 03 … 30, 31                     	 |
+| 	              | D     	 | 1, 2, 3 … 30, 31                        	 |
+| 	              | Do    	 | 1st, 2nd, 3rd …                      	    |
+| Day of Week  	 | dddd  	 | Monday, Tuesday, Wednesday …            	 |
+| 	              | ddd   	 | Mon, Tue, Wed …                         	 |
+| Hour         	 | HH    	 | 00, 01, 02 … 23, 24                     	 |
+| 	              | hh    	 | 01, 02, 03 … 11, 12                     	 |
+| 	              | h     	 | 1, 2, 3 … 11, 12                        	 |
+| AM / PM      	 | A     	 | AM, PM                                  	 |
+| 	              | a     	 | am, pm                                  	 |
+| Minute       	 | mm    	 | 00, 01, 02 … 58, 59                     	 |
+| 	              | m     	 | 0, 1, 2 … 58, 59                        	 |
+| Second       	 | ss    	 | 00, 01, 02 … 58, 59                     	 |
+| 	              | s     	 | 0, 1, 2 … 58, 59                        	 |
+| Microsecond  	 | S     	 | 000000 … 999999                         	 |
+| Timezone     	 | ZZZ   	 | Asia/Baku, Europe/Warsaw, GMT           	 |
+| 	              | zz    	 | -07:00, -06:00 … +06:00, +07:00, +08, Z 	 |
+| 	              | Z     	 | -0700, -0600 … +0600, +0700, +08, Z     	 |
 
 ## Parsing
 
-> Please consider that you cannot put custom tokens or custom letters into the *parsing* string 
+> Please consider that you cannot put custom tokens or custom letters into the *parsing* string
 
 Easily parse with `Parse`:
 
@@ -344,15 +355,15 @@ Here is the section for some nice helper functions that will save you some time.
 
 ```go
 isBetween := gostradamus.NewUTCDateTime(2020, 1, 1, 12, 0, 0, 0).IsBetween(
-	gostradamus.NewUTCDateTime(2020, 1, 1, 11, 0, 0, 0),
-    gostradamus.NewUTCDateTime(2020, 1, 1, 13, 0, 0, 0), 
+gostradamus.NewUTCDateTime(2020, 1, 1, 11, 0, 0, 0),
+gostradamus.NewUTCDateTime(2020, 1, 1, 13, 0, 0, 0),
 )
 println(isBetween)
 // true
 
 isBetween = gostradamus.NewUTCDateTime(2020, 1, 1, 12, 0, 0, 0).IsBetween(
-    gostradamus.NewUTCDateTime(2020, 1, 1, 13, 0, 0, 0),
-    gostradamus.NewUTCDateTime(2020, 1, 1, 14, 0, 0, 0),
+gostradamus.NewUTCDateTime(2020, 1, 1, 13, 0, 0, 0),
+gostradamus.NewUTCDateTime(2020, 1, 1, 14, 0, 0, 0),
 )
 println(isBetween)
 // false
@@ -361,7 +372,7 @@ println(isBetween)
 ### IsoCalendar
 
 Retrieve year, month, day directly as a 3-tuple:
- 
+
 ```go
 year, month, day := gostradamus.NewUTCDateTime(2020, 1, 1, 12, 0, 0, 0).IsoCalendar()
 println(year, month, day)
